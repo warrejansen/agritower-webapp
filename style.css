@@ -1,0 +1,449 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue','Helvetica','Helv','Roboto','Arial','Lucida Grande','sans-serif';
+}
+body {
+  margin: 0 auto;
+  background-color: #f6f6f6;
+}
+.container1 {
+  width: 100%;
+  height: calc(100vh - 80px);
+  min-height: 650px;
+  background-image: url('img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.container1 .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(90deg, #052338, #4d3a5e);
+  opacity: 0.8;
+}
+.innercontainer {
+  margin-left: 100px;
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.container1 .innercontainer h1 {
+  color: white;
+  margin: 0;
+  font-size: 70px;
+  font-weight: 100;
+  margin-bottom: -20px;
+}
+.container1 .innercontainer h1 select {
+  font-size: 70px;
+  background-color: transparent;
+  border: transparent;
+  color: #fff;
+  font-weight: lighter;
+  -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+}
+.container1 .innercontainer h1 option {
+  font-size: 20px;
+  background-color: rgba(255,255,255,0.5);
+  color: #777;
+}
+
+.container1 .innercontainer p {
+  color: white;
+  max-width: 450px;
+  font-weight: lighter;
+  font-size: 20px;
+  text-align: justify;
+}
+.container1 .innercontainer button {
+  color: #07263d;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 40px;
+  cursor: pointer;
+  height: 35px;
+}
+.container1, .innercontainer input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: rgba(255,255,255,0.2);
+  height: 35px;
+}
+.container1, .innercontainer input::placeholder {
+  color: #fff;
+}
+.vochtigheidContainer {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.chart {
+  width: 600px;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.container2 {
+  max-width: 1000px;
+  width: 750px;
+  margin: 0 auto;
+  height: 200px;
+  margin-top: -95px;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 20px -5px rgba(150,150,150,0.75);
+  -moz-box-shadow: 0px 0px 20px -5px rgba(150,150,150,0.75);
+  box-shadow: 0px 0px 20px -5px rgba(150,150,150,0.75);
+  border-radius: 5px;
+  position: relative;
+}
+.container2 a {
+  text-decoration: none;
+}
+.container2 .navigationButton {
+  width: 184px;
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 50px;
+  padding-top: 50px;
+  color: #777;
+  cursor: pointer;
+  height: 100%;
+}
+.container2 .first {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.container2 .last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.container2 .navigationButton p {
+  font-size: 25px;
+  font-weight: 100;
+}
+.container2 .navigationButton:hover {
+  background-color: #f8f8f8;
+}
+.container3 {
+  width: 100%;
+  padding: 50px;
+  text-align: center;
+  margin: 0 auto;
+}
+.container3 h2, .container4 h2, .container5 h2 {
+  font-weight: lighter;
+  color: #333;
+  font-size: 35px;
+  margin: 0;
+}
+.container3 p, .container4 p, .container5 p {
+  margin: 0;
+  margin-bottom: 40px;
+  font-weight: lighter;
+  margin-top: 10px;
+}
+
+table {
+border: 1px solid #cdcdcd;
+border-collapse: separate;
+border-left: 0;
+border-radius: 4px;
+border-spacing: 0px;
+margin: 0 auto;
+}
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+border-collapse: separate;
+}
+tr {
+display: table-row;
+vertical-align: inherit;
+border-color: inherit;
+}
+th, td {
+padding: 5px 4px 6px 4px;
+text-align: left;
+vertical-align: top;
+border-left: 1px solid #cdcdcd;
+}
+td {
+border-top: 1px solid #cdcdcd;
+color: #333;
+font-weight: lighter;
+}
+th {
+background-color: #cdcdcd;
+font-weight: lighter;
+color: white;
+padding: 10px 20px;
+}
+thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+border-radius: 4px 0 0 0;
+}
+thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+border-radius: 0 0 0 4px;
+}
+.container4 {
+  width: 100%;
+  padding: 50px 0px;
+  background-color: #fff;
+  text-align: center;
+}
+.imageContainer, h3 {
+  text-align: left;
+  margin-left: 50px;
+  font-weight: lighter;
+  color:  #333;
+}
+.container4 .imageCover {
+  width: 150px;
+  height: 210px;
+overflow: hidden;
+display: inline-block;
+}
+.container4 .imageCover img {
+  width: 100%;
+}
+.container5 {
+  width: 100%;
+  padding: 50px;
+  text-align: center;
+}
+
+/* The switch - the box around the slider */
+.switch {
+position: relative;
+display: inline-block;
+width: 30px;
+height: 18px;
+vertical-align: top;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+/* The slider */
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #dedede;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 13px;
+width: 13px;
+left: 2px;
+bottom: 3px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #ace6a4;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px #ace6a4;
+}
+
+
+input:checked + .slider:before {
+-webkit-transform: translateX(13px);
+-ms-transform: translateX(13px);
+transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+border-radius: 17px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+
+
+.kleurenContainer {
+width: 210px;
+display: inline-block;
+text-align: center;
+vertical-align: top;
+}
+.kleurenContainer .kleurenNav {
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 5px;
+width: 195px;
+margin: auto;
+margin-top: 5px;
+padding: 10px;
+}
+.kleurenContainer p {
+padding: 0;
+margin: 0;
+}
+.kleurenContainer .kleurenTitel {
+margin: auto;
+background-color: #ddd;
+border-radius: 7px;
+margin-top: 5px;
+width: 193px;
+text-align: center;
+padding: 5px;
+font-weight: lighter;
+color: #777;
+font-size: 20px;
+border-bottom: 3px solid #b4b4b4;
+margin-bottom: 10px;
+margin-top: 30px;
+}
+.kleurenContainer .titleDarkRed{
+border-color: #871c1c;
+  color: #fff;
+  background-color: #b83c3c
+}
+.kleurenContainer .titleRed{
+border-color: #ae4242;
+color: #fff;
+background-color: #f46161;
+}
+.kleurenContainer .titleBlue{
+border-color: #24388d;
+color: #fff;
+background-color: #6779c7;
+}
+.kleurenContainer .titleWhite{
+border-color: #dedede;
+color: #777;
+background-color: #fff;
+}
+.kleurenContainer .kleurenTitel label {
+margin-left: 10px;
+vertical-align: middle;
+}
+.kleurenContainer table tr .kleurenIcon {
+text-align: center;
+color: #777;
+vertical-align: middle;
+}
+.kleurenContainer .kleurenNav button, .vochtigheidTableContainer button {
+border: none;
+background-color: transparent;
+cursor: pointer;
+margin: 0px 10px;
+color: #777;
+}
+.kleurenContainer .kleurenNav button:hover, .vochtigheidTableContainer button:hover {
+color: #222;
+}
+.kleurenContainer .kleurenNav input, .vochtigheidTableContainer input {
+border: none;
+background-color: transparent;
+width: 20px;
+font-weight: 100;
+font-size: 16px;
+text-align: right;
+}
+.kleurenContainer .kleurenNav p, .vochtigheidTableContainer p {
+display: inline-block;
+margin: 0;
+padding: 0;
+}
+.toggleSwitch {
+margin-bottom: 30px;
+margin-top: -10px;
+}
+.toggleSwitch button {
+border: none;
+background-color: #ddd;
+font-size: 20px;
+color: #777;
+padding: 5px 10px;
+border-radius: 5px;
+border-bottom: 2px solid;
+opacity: 0.3;
+cursor: pointer;
+}
+.toggleSwitch button:hover {
+opacity: 0.8;
+}
+#vochtigheidUurButton {
+opacity: 1;
+}
+#vochtigheidWeek {
+display: none;
+}
+.vochtigheidTableContainer, .chart {
+display: inline-block;
+}
+.vochtigheidTableContainer {
+vertical-align: top;
+margin: 0px 5px;
+}
+.vochtigheidTableContainer table tr td {
+text-align: center;
+}
+.chart {
+border-radius: 10px;
+overflow: hidden;
+margin: 0px 5px;
+}
+footer {
+  display: block;
+  position: absolute;
+  background-color: rgb(75, 75, 75);
+  height: 45px;
+  margin-left: 10px;
+  margin-right: 10px;
+  left: -10px;
+  right: -10px;
+  /* margin-bottom: 10px; */
+  padding: 10px ;
+
+}
+footer p{
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  margin-top: 5px;
+}
+footer td {
+  color: white;
+  font-size: 20px;
+  /* text-align: center; */
+  padding:5px;
+}
+#section1 {
+  height: 1000px;
+}
+
+#section2 {
+  height: 1000px;
+}
