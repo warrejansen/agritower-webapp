@@ -35,7 +35,7 @@ if (isset($_SESSION['user'])) {
     $startdatum = '';
     // Laatste 8640 gegevens ophalen
     include "./includes/dbh.php";
-    $sql = "SELECT * FROM `moistureSensor` LIMIT 8640";
+    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` DESC LIMIT 8640";
     $result = mysqli_query($conn, $sql);
 
     $avgArray = [];
@@ -48,10 +48,13 @@ if (isset($_SESSION['user'])) {
       if ($oddCount == 719) {
         array_push($avgArray, [$row['datum'], $tempSum / 719]);
         $oddCount = 0;
+        $tempSum = 0;
       }
 
       $oddCount += 1;
     }
+
+    $avgArray = array_reverse($avgArray);
 
     foreach ($avgArray as $avgValue) {
       // De resultaten toevoegen aan de bestaande array ($gegevens)
@@ -65,13 +68,13 @@ if (isset($_SESSION['user'])) {
       // We kunnen wel de startdatum en eindatum van de getoonde metingen tonen
       // Hiervoor kijken we eerst of de eindatum verschillend is van de startdatum
       // Als de startdatum nog geen waarde heeft, dan geven we hem de waarde van de datum
-      if (!$startdatum) {
-        $startdatum = $datum;
-      }
+      // if (!$startdatum) {
+      //   $startdatum = $datum;
+      // }
       // Als de startdatum niet gelijk is aan de datum, dan hebben we een nieuwe einddatum
-      if ($startdatum !== $datum) {
-        $einddatum = $datum;
-      }
+      // if ($startdatum !== $datum) {
+      //   $einddatum = $datum;
+      // }
       $temperatuur = floatval($avgValue[1]);
       array_push($gegevens, [$avgValue[0], $temperatuur]);
     }
@@ -87,9 +90,9 @@ if (isset($_SESSION['user'])) {
 
     $gegevens2 = [['Datum', 'Vochtigheid']]; // Een array in een array
     $startdatum2 = '';
-    // Laatste 8640 gegevens ophalen
+    // Laatste 60480 gegevens ophalen
     include "./includes/dbh.php";
-    $sql = "SELECT * FROM `archiveMoistureSensor` LIMIT 8640";
+    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` DESC LIMIT 60480";
     $result = mysqli_query($conn, $sql);
 
     $avgArray1 = [];
@@ -102,10 +105,13 @@ if (isset($_SESSION['user'])) {
       if ($oddCount1 == 719) {
         array_push($avgArray1, [$row['datum'], $tempSum1 / 719]);
         $oddCount1 = 0;
+        $tempSum1 = 0;
       }
 
       $oddCount1 += 1;
     }
+
+    $avgArray1 = array_reverse($avgArray1);
 
     foreach ($avgArray1 as $avgValue1) {
       // De resultaten toevoegen aan de bestaande array ($gegevens)
@@ -119,13 +125,13 @@ if (isset($_SESSION['user'])) {
       // We kunnen wel de startdatum en eindatum van de getoonde metingen tonen
       // Hiervoor kijken we eerst of de eindatum verschillend is van de startdatum
       // Als de startdatum nog geen waarde heeft, dan geven we hem de waarde van de datum
-      if (!$startdatum2) {
-        $startdatum2 = $datum2;
-      }
+      // if (!$startdatum2) {
+      //   $startdatum2 = $datum2;
+      // }
       // Als de startdatum niet gelijk is aan de datum, dan hebben we een nieuwe einddatum
-      if ($startdatum2 !== $datum2) {
-        $einddatum2 = $datum2;
-      }
+      // if ($startdatum2 !== $datum2) {
+      //   $einddatum2 = $datum2;
+      // }
       $temperatuur2 = floatval($avgValue1[1]);
       array_push($gegevens2, [$avgValue1[0], $temperatuur2]);
     }
@@ -529,7 +535,7 @@ if (isset($_SESSION['user'])) {
               <tbody>
                 <tr>
                 <?php
-                    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` ASC LIMIT 12";
+                    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` DESC LIMIT 12";
                     $result = mysqli_query($conn, $sql);
                     $numberOfRows = mysqli_num_rows($result);
                     $x = 0;
@@ -575,7 +581,7 @@ if (isset($_SESSION['user'])) {
               <tbody>
                 <tr>
                 <?php
-                    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` ASC LIMIT 12";
+                    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` DESC LIMIT 12";
                     $result = mysqli_query($conn, $sql);
                     $numberOfRows = mysqli_num_rows($result);
                     $x = 0;
@@ -630,7 +636,7 @@ if (isset($_SESSION['user'])) {
           <tbody>
             <tr>
             <?php
-                $sql = "SELECT * FROM `temperatureSensor` ORDER BY `datum` ASC LIMIT 12";
+                $sql = "SELECT * FROM `temperatureSensor` ORDER BY `datum` DESC LIMIT 12";
                 $result = mysqli_query($conn, $sql);
                 $numberOfRows = mysqli_num_rows($result);
                 $x = 0;
