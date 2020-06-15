@@ -1,8 +1,12 @@
 <?php
 session_start();
-include "./includes/dbh.php";
-$user = $_SESSION['user'];
-echo $user;
+include "includes/dbh.php";
+if (isset($_SESSION['user'])) {
+  $user = $_SESSION['user'];
+  // echo $user;
+} else {
+  $user = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +24,8 @@ echo $user;
         scroll-behavior: smooth;
       }
     </style>
+    <link rel="icon" type="image/icon" href="favicon.ico">
   </head>
-  <?php
-    $desert = include './icons/desert.php';
-   ?>
-
-
-
     <?php
 
     // gegevens 24 uur
@@ -622,7 +621,7 @@ echo $user;
 
 
     <footer>
-        <img src="/img/logo-provil1.png" style="; position:absolute; left:10px; bottom:5px; width: 100px;">
+        <img src="img/logo-provil1.png" style="; position:absolute; left:10px; bottom:5px; width: 100px;">
     <p> &#169; De AgriTower</p>
   </footer>
   </body>
@@ -763,7 +762,7 @@ function drawChart(data) {
     $('#loginForm').on('submit',function(event){
       event.preventDefault();
       $.ajax({
-        url: '/includes/login.php',
+        url: 'includes/login.php',
         method : 'POST',
         data: new FormData(this),
         contentType: false,
