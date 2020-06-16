@@ -433,6 +433,7 @@ footer p{
   color: white;
   text-decoration: none;
   margin-top: 5px;
+  margin-bottom: 0;
 }
 footer td {
   color: white;
