@@ -31,70 +31,114 @@ if (isset($_SESSION['user'])) {
     // gegevens 24 uur
 
 
-    $gegevens = [['datum', 'temperatuur']]; // Een array in een array
+    $gegevens = [['Datum', 'Vochtigheid']]; // Een array in een array
     $startdatum = '';
-    // Laatste 20 gegevens ophalen
+    // Laatste 8640 gegevens ophalen
     include "./includes/dbh.php";
-    $sql = "SELECT * FROM `moistureSensor` LIMIT 20";
+    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` DESC LIMIT 8640";
     $result = mysqli_query($conn, $sql);
+
+    $avgArray = [];
+    $tempSum = 0;
+    $oddCount = 0;
+
     while ($row = mysqli_fetch_array($result)) {
+      $tempSum += $row["waarde"];
+
+      if ($oddCount == 719) {
+        array_push($avgArray, [$row['datum'], $tempSum / 719]);
+        $oddCount = 0;
+        $tempSum = 0;
+      }
+
+      $oddCount += 1;
+    }
+
+    $avgArray = array_reverse($avgArray);
+
+    foreach ($avgArray as $avgValue) {
       // De resultaten toevoegen aan de bestaande array ($gegevens)
       // Kies misschien wel voor de kolom waarde in je db een andere naam
       // De waarde datum bestaat uit datum en tijd, we splitsen deze met explode
       // Dit geeft ons een array terug met als eerste element de datum en tweede
       // argument de tijd. We gaan enkel de tijd tonen in onze grafiek.
-      $datumArray = explode(" ", $row['datum']);
-      $datum = $datumArray[0];
-      $tijd = $datumArray[1];
+      // $datumArray = explode(" ", $avgValue[0]);
+      // $datum = $datumArray[0];
+      // $tijd = $datumArray[1];
       // We kunnen wel de startdatum en eindatum van de getoonde metingen tonen
       // Hiervoor kijken we eerst of de eindatum verschillend is van de startdatum
       // Als de startdatum nog geen waarde heeft, dan geven we hem de waarde van de datum
-      if (!$startdatum) {
-        $startdatum = $datum;
-      }
+      // if (!$startdatum) {
+      //   $startdatum = $datum;
+      // }
       // Als de startdatum niet gelijk is aan de datum, dan hebben we een nieuwe einddatum
-      if ($startdatum !== $datum) {
-        $einddatum = $datum;
-      }
-      $temperatuur = floatval($row['waarde']);
-      array_push($gegevens, [$tijd, $temperatuur]);
-      }
-      // PHP array omvormen naar js array
-      $gegevens = json_encode($gegevens);
+      // if ($startdatum !== $datum) {
+      //   $einddatum = $datum;
+      // }
+      $temperatuur = floatval($avgValue[1]);
+      array_push($gegevens, [$avgValue[0], $temperatuur]);
+    }
 
-      // Gegevens week
+    if (count($avgArray) == 0) {
+      array_push($gegevens, ["", 0]);
+    }
 
-      $gegevens2 = [['datum', 'temperatuur']]; // Een array in een array
-      $startdatum2 = '';
-      // Laatste 20 gegevens ophalen
-      include "./includes/dbh.php";
-      $sql = "SELECT * FROM `archiveMoistureSensor` LIMIT 20";
-      $result = mysqli_query($conn, $sql);
-      while ($row = mysqli_fetch_array($result)) {
-        // De resultaten toevoegen aan de bestaande array ($gegevens)
-        // Kies misschien wel voor de kolom waarde in je db een andere naam
-        // De waarde datum bestaat uit datum en tijd, we splitsen deze met explode
-        // Dit geeft ons een array terug met als eerste element de datum en tweede
-        // argument de tijd. We gaan enkel de tijd tonen in onze grafiek.
-        $datumArray2 = explode(" ", $row['datum']);
-        $datum2 = $datumArray2[0];
-        $tijd2 = $datumArray2[1];
-        // We kunnen wel de startdatum en eindatum van de getoonde metingen tonen
-        // Hiervoor kijken we eerst of de eindatum verschillend is van de startdatum
-        // Als de startdatum nog geen waarde heeft, dan geven we hem de waarde van de datum
-        if (!$startdatum2) {
-          $startdatum2 = $datum2;
-        }
-        // Als de startdatum niet gelijk is aan de datum, dan hebben we een nieuwe einddatum
-        if ($startdatum2 !== $datum2) {
-          $einddatum2 = $datum2;
-        }
-        $temperatuur2 = floatval($row['waarde']);
-        array_push($gegevens2, [$tijd2, $temperatuur2]);
-        }
-        // PHP array omvormen naar js array
-        $gegevens2 = json_encode($gegevens2);
-     ?>
+    // PHP array omvormen naar js array
+    $gegevens = json_encode($gegevens);
+
+    // Gegevens week
+
+    $gegevens2 = [['Datum', 'Vochtigheid']]; // Een array in een array
+    $startdatum2 = '';
+    // Laatste 60480 gegevens ophalen
+    include "./includes/dbh.php";
+    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` DESC LIMIT 60480";
+    $result = mysqli_query($conn, $sql);
+
+    $avgArray1 = [];
+    $tempSum1 = 0;
+    $oddCount1 = 0;
+
+    while ($row = mysqli_fetch_array($result)) {
+      $tempSum1 += $row["waarde"];
+
+      if ($oddCount1 == 719) {
+        array_push($avgArray1, [$row['datum'], $tempSum1 / 719]);
+        $oddCount1 = 0;
+        $tempSum1 = 0;
+      }
+
+      $oddCount1 += 1;
+    }
+
+    $avgArray1 = array_reverse($avgArray1);
+
+    foreach ($avgArray1 as $avgValue1) {
+      // De resultaten toevoegen aan de bestaande array ($gegevens)
+      // Kies misschien wel voor de kolom waarde in je db een andere naam
+      // De waarde datum bestaat uit datum en tijd, we splitsen deze met explode
+      // Dit geeft ons een array terug met als eerste element de datum en tweede
+      // argument de tijd. We gaan enkel de tijd tonen in onze grafiek.
+      // $datumArray2 = explode(" ", $avgValue1[0]);
+      // $datum2 = $datumArray2[0];
+      // $tijd2 = $datumArray2[1];
+      // We kunnen wel de startdatum en eindatum van de getoonde metingen tonen
+      // Hiervoor kijken we eerst of de eindatum verschillend is van de startdatum
+      // Als de startdatum nog geen waarde heeft, dan geven we hem de waarde van de datum
+      // if (!$startdatum2) {
+      //   $startdatum2 = $datum2;
+      // }
+      // Als de startdatum niet gelijk is aan de datum, dan hebben we een nieuwe einddatum
+      // if ($startdatum2 !== $datum2) {
+      //   $einddatum2 = $datum2;
+      // }
+      $temperatuur2 = floatval($avgValue1[1]);
+      array_push($gegevens2, [$avgValue1[0], $temperatuur2]);
+    }
+
+    // PHP array omvormen naar js array
+    $gegevens2 = json_encode($gegevens2);
+    ?>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -491,7 +535,7 @@ if (isset($_SESSION['user'])) {
               <tbody>
                 <tr>
                 <?php
-                    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` ASC LIMIT 12";
+                    $sql = "SELECT * FROM `moistureSensor` ORDER BY `datum` DESC LIMIT 12";
                     $result = mysqli_query($conn, $sql);
                     $numberOfRows = mysqli_num_rows($result);
                     $x = 0;
@@ -537,7 +581,7 @@ if (isset($_SESSION['user'])) {
               <tbody>
                 <tr>
                 <?php
-                    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` ASC LIMIT 12";
+                    $sql = "SELECT * FROM `archiveMoistureSensor` ORDER BY `datum` DESC LIMIT 12";
                     $result = mysqli_query($conn, $sql);
                     $numberOfRows = mysqli_num_rows($result);
                     $x = 0;
@@ -592,7 +636,7 @@ if (isset($_SESSION['user'])) {
           <tbody>
             <tr>
             <?php
-                $sql = "SELECT * FROM `temperatureSensor` ORDER BY `datum` ASC LIMIT 12";
+                $sql = "SELECT * FROM `temperatureSensor` ORDER BY `datum` DESC LIMIT 12";
                 $result = mysqli_query($conn, $sql);
                 $numberOfRows = mysqli_num_rows($result);
                 $x = 0;
@@ -635,7 +679,7 @@ $( document ).ready(function() {
 function drawChart(data) {
 
   var gegevens = {}
-  if (data ==='week') {
+  if (data === 'week') {
     gegevens = <?php echo $gegevens2; ?>
   } else  {
     gegevens = <?php echo $gegevens; ?>
